@@ -28,7 +28,12 @@
         <li class="nav-item">
           <a href="index.php?page=users_list" class="nav-link">
             <i class="nav-icon bi bi-people"></i>
-            <p>users</p>
+            <p>Users</p>
+          </a>
+        <li class="nav-item">
+          <a href="index.php?page=products" class="nav-link">
+            <i class="bi bi-bag-dash"></i>
+            <p>Products</p>
           </a>
         </li>
       </ul>

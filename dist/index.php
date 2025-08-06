@@ -98,6 +98,18 @@
         default:
           include 'dashboard.php';
           break;
+        case 'products';
+          include 'products.php';
+          break;
+        case 'add_products':
+          include 'add_products.php';
+          break;
+        case 'edit_products':
+          include 'edit_products.php';
+          break;
+        case 'del_products':
+          include 'del_products.php';
+          break;
       }
       ?>
     </main>

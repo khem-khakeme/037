@@ -1,24 +1,23 @@
 <?php
 require '../connect.php';
 if (isset($_POST['save'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $fullname = $_POST['fullname'];
-    $phone = $_POST['phone'];
-    $email = $_POST['email'];
-    if (empty($username) || empty($password) || empty($fullname) || empty($phone) || empty($email)) {
+    $pro_name = $_POST['proname'];
+    $pro_price = $_POST['proprice'];
+    $pro_amount = $_POST['proamount'];
+    $pro_status = $_POST['prostatus'];
+    if (empty($pro_name) || empty($pro_price) || empty($pro_amount) || empty($pro_status)) {
         echo "<script>alert('Please enter all data');history.back();</script>";
     } else {
-        $exit_username = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM khem"));
-        if ($username == $exit_username["username"]) {
-            echo "<script>alert('username นี้มีผู้ใช้งานไปแล้ว');history.back();</script>";
+        $exit_proname = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM products"));
+        if ($pro_name == $exit_proname['pro_name']) {
+            echo "<script>alert('id นี้มีผู้ใช้งานไปแล้ว');history.back();</script>";
         } else {
-            $sql = "INSERT INTO khem(username,user_pass,fullname,phone,email) VALUES('$username','$password','$fullname','$phone','$email')";
+            $sql = "INSERT INTO products(pro_name,pro_price,pro_amount,pro_status) VALUES('$pro_name','$pro_price','$pro_amount','$pro_status')";
             $result = mysqli_query($conn, $sql);
             if (!$result) {
                 echo "<script>alert('บันทึกข้อมูลผิดพลาด');history.back();</script>";
             } else {
-                echo "<script>window.location.href='index.php?page=users_list'</script>";
+                echo "<script>window.location.href='index.php?page=products'</script>";
             }
         }
     }
@@ -33,12 +32,12 @@ if (isset($_POST['save'])) {
         <!--begin::Row-->
         <div class="row">
             <div class="col-sm-6">
-                <h3 class="mb-0">Add User</h3>
+                <h3 class="mb-0">Add Products</h3>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-end">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">add_user</li>
+                    <li class="breadcrumb-item active" aria-current="page">add_products</li>
                 </ol>
             </div>
         </div>
@@ -59,7 +58,7 @@ if (isset($_POST['save'])) {
                 <div class="card card-primary card-outline mb-4">
                     <!--begin::Header-->
                     <div class="card-header bg-primary text-white">
-                        <div class="card-title">Add User</div>
+                        <div class="card-title">Add products</div>
                     </div>
                     <!--end::Header-->
                     <!--begin::Form-->
@@ -67,29 +66,21 @@ if (isset($_POST['save'])) {
                         <!--begin::Body-->
                         <div class="card-body">
                             <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Username</label>
-                                <input type="text" name="username" class="form-control" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" />
-                                <div id="emailHelp" class="form-text">
-                                    Username ต้องไม่ซ้ำกับคนอื่น
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Password</label>
-                                <input type="password" name="password" class="form-control"
+                                <label for="exampleInputPassword1" class="form-label">ชื่อสินค้า</label>
+                                <input type="text" name="proname" class="form-control"
                                     id="exampleInputPassword1" />
                             </div>
                             <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">ชื่อ-นามสกุล</label>
-                                <input type="text" name="fullname" class="form-control" id="exampleInputPassword1" />
+                                <label for="exampleInputPassword1" class="form-label">ราคา</label>
+                                <input type="text" name="proprice" class="form-control" id="exampleInputPassword1" />
                             </div>
                             <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">เบอร์โทรศัพท์</label>
-                                <input type="text" name="phone" class="form-control" id="exampleInputPassword1" />
+                                <label for="exampleInputPassword1" class="form-label">จำนวนสินค้า</label>
+                                <input type="text" name="proamount" class="form-control" id="exampleInputPassword1" />
                             </div>
                             <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Email</label>
-                                <input type="email" name="email" class="form-control" id="exampleInputPassword1" />
+                                <label for="exampleInputPassword1" class="form-label">Status</label>
+                                <input type="text" name="prostatus" class="form-control" id="exampleInputPassword1" />
                             </div>
                         </div>
                         <!--end::Body-->
