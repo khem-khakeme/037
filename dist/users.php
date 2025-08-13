@@ -49,6 +49,7 @@ $result = mysqli_query($conn, $sql);
                                     <th>Fullname</th>
                                     <th>Phone</th>
                                     <th>Email</th>
+                                    <th>Image</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -63,6 +64,7 @@ $result = mysqli_query($conn, $sql);
                                         <td><?php echo $row['fullname'] ?></td>
                                         <td><?php echo $row['phone'] ?></td>
                                         <td><?php echo $row['email'] ?></td>
+                                        <td><img src="assets/user_img/<?php echo $row['image']?>" width="150"></td>
                                         <td>
                                             <a href="index.php?page=edit_user&username=<?php echo $row['username']?>" class="btn btn-warning">
                                                 <i class="bi bi-pencil-square"></i>

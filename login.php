@@ -16,7 +16,7 @@
             height: 100%;
             margin: 0;
             font-family: 'Segoe UI', sans-serif;
-            background: url('https://i.pinimg.com/1200x/9d/1f/2e/9d1f2e441590c09d737125a61b5f5281.jpg') no-repeat center center fixed;
+            background: url('https://i.pinimg.com/originals/cc/c8/39/ccc839332d89d6150db61b7e47da89f1.gif') no-repeat center center fixed;
             background-size: cover;
             display: flex;
             align-items: center;

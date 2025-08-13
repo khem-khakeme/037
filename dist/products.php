@@ -50,6 +50,7 @@ $result = mysqli_query($conn, $sql);
                                     <th>Price</th>
                                     <th>Amount</th>
                                     <th>Status</th>
+                                    <th>Image</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -64,6 +65,7 @@ $result = mysqli_query($conn, $sql);
                                         <td><?php echo $row['pro_price'] ?></td>
                                         <td><?php echo $row['pro_amount'] ?></td>
                                         <td><?php echo $row['pro_status'] ?></td>
+                                        <td><img src="assets/product_img/<?php echo $row['image']?>" width="100"></td>
                                         <td>
                                             <a href="index.php?page=edit_products&pro_id=<?php echo $row['pro_id'] ?>"
                                                 class="btn btn-warning">

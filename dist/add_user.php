@@ -6,14 +6,16 @@ if (isset($_POST['save'])) {
     $fullname = $_POST['fullname'];
     $phone = $_POST['phone'];
     $email = $_POST['email'];
+    $filename = $_FILES['image']['name']; /* ช่องแรกตั้งชื่อไว้ว่าอะไรก็ใส่ไป ส่วนช่องที่สองเป็นค่าคงที่ */
     if (empty($username) || empty($password) || empty($fullname) || empty($phone) || empty($email)) {
         echo "<script>alert('Please enter all data');history.back();</script>";
     } else {
-        $exit_username = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM khem"));
+        $exit_username = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM khem"));
         if ($username == $exit_username["username"]) {
             echo "<script>alert('username นี้มีผู้ใช้งานไปแล้ว');history.back();</script>";
         } else {
-            $sql = "INSERT INTO khem(username,user_pass,fullname,phone,email) VALUES('$username','$password','$fullname','$phone','$email')";
+            move_uploaded_file($_FILES['image']['tmp_name'],'assets/user_img/' .$filename);
+            $sql = "INSERT INTO khem(username,user_pass,fullname,phone,email,image) VALUES('$username','$password','$fullname','$phone','$email','$filename')";
             $result = mysqli_query($conn, $sql);
             if (!$result) {
                 echo "<script>alert('บันทึกข้อมูลผิดพลาด');history.back();</script>";
@@ -63,7 +65,7 @@ if (isset($_POST['save'])) {
                     </div>
                     <!--end::Header-->
                     <!--begin::Form-->
-                    <form action="<?php $_SERVER['PHP_SELF'] ?>" method="POST">
+                    <form action="<?php $_SERVER['PHP_SELF'] ?>" method="POST" enctype="multipart/form-data">
                         <!--begin::Body-->
                         <div class="card-body">
                             <div class="mb-3">
@@ -90,6 +92,10 @@ if (isset($_POST['save'])) {
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Email</label>
                                 <input type="email" name="email" class="form-control" id="exampleInputPassword1" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Image</label>
+                                <input type="file" name="image" class="form-control" id="exampleInputPassword1" />
                             </div>
                         </div>
                         <!--end::Body-->

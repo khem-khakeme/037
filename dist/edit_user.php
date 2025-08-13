@@ -11,7 +11,14 @@ if (isset($_POST['save'])) {//ถ้ามีการกดปุ่ม save �
     $fullname = $_POST['fullname'];
     $phone = $_POST['phone'];
     $email = $_POST['email'];
-    $sql = "UPDATE khem SET user_pass='$password' , fullname='$fullname' , phone='$phone' , email='$email' WHERE username='$username'";
+    /* เช็คไฟล์ภาพ */
+    if (!empty($_FILES['user_img']['name'])) {
+        $filename = $_FILES['user_img']['name']; /* อัปรูปใหม่ */
+        move_uploaded_file($_FILES['user_img']['tmp_name'],'assets/user_img/' .$filename);
+    } else {
+        $filename = $row['image'];
+    }
+    $sql = "UPDATE khem SET user_pass='$password' , fullname='$fullname' , phone='$phone' , email='$email' ,  image='$filename' WHERE username='$username'";
     $result = mysqli_query($conn, $sql);
     if (!$result) {
         echo "<script>alert('บันทึกข้อมูลผิดพลาด');history.back();</script>";
@@ -28,12 +35,12 @@ if (isset($_POST['save'])) {//ถ้ามีการกดปุ่ม save �
         <!--begin::Row-->
         <div class="row">
             <div class="col-sm-6">
-                <h3 class="mb-0">Add User</h3>
+                <h3 class="mb-0">Edit User</h3>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-end">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">add_user</li>
+                    <li class="breadcrumb-item active" aria-current="page">edit_user</li>
                 </ol>
             </div>
         </div>
@@ -54,11 +61,11 @@ if (isset($_POST['save'])) {//ถ้ามีการกดปุ่ม save �
                 <div class="card card-primary card-outline mb-4">
                     <!--begin::Header-->
                     <div class="card-header bg-primary text-white">
-                        <div class="card-title">Add User</div>
+                        <div class="card-title">Edit User</div>
                     </div>
                     <!--end::Header-->
                     <!--begin::Form-->
-                    <form action="<?php $_SERVER['PHP_SELF'] ?>" method="POST">
+                    <form action="<?php $_SERVER['PHP_SELF'] ?>" method="POST" enctype="multipart/form-data">
                         <!--begin::Body-->
                         <div class="card-body">
                             <div class="mb-3">
@@ -88,6 +95,14 @@ if (isset($_POST['save'])) {//ถ้ามีการกดปุ่ม save �
                                 <label for="exampleInputPassword1" class="form-label">Email</label>
                                 <input type="email" name="email" class="form-control" id="exampleInputPassword1"
                                     value="<?php echo $row['email'] ?>" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">รูปภาพเดิม</label>
+                                <img src="assets/user_img/<?php echo $row['image'] ?>" alt="" class="mb-3" width="150">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">รูปภาพใหม่</label>
+                                <input type="file" name="user_img" class="form-control">
                             </div>
                         </div>
                         <!--end::Body-->

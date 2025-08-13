@@ -12,7 +12,14 @@ if (isset($_POST['save'])) {//ถ้ามีการกดปุ่ม save �
     $pro_price = $_POST['pro_price'];
     $pro_amount = $_POST['pro_amount'];
     $pro_status = $_POST['pro_status'];
-    $sql = "UPDATE products SET pro_id='$pro_id' , pro_name='$pro_name' , pro_price='$pro_price' , pro_amount='$pro_amount' , pro_status='$pro_status' WHERE pro_id='$pro_id'";
+    
+    if (!empty($_FILES['product_img']['name'])) {
+        $filename = $_FILES['product_img']['name']; /* อัปรูปใหม่ */
+        move_uploaded_file($_FILES['product_img']['tmp_name'],'assets/product_img/' .$filename);
+    } else {
+        $filename = $row['image'];
+    }
+    $sql = "UPDATE products SET pro_id='$pro_id' , pro_name='$pro_name' , pro_price='$pro_price' , pro_amount='$pro_amount' , pro_status='$pro_status' , image='$filename' WHERE pro_id='$pro_id'";
     $result = mysqli_query($conn, $sql);
     if (!$result) {
         echo "<script>alert('บันทึกข้อมูลผิดพลาด');history.back();</script>";
@@ -59,7 +66,7 @@ if (isset($_POST['save'])) {//ถ้ามีการกดปุ่ม save �
                     </div>
                     <!--end::Header-->
                     <!--begin::Form-->
-                    <form action="<?php $_SERVER['PHP_SELF'] ?>" method="POST">
+                    <form action="<?php $_SERVER['PHP_SELF'] ?>" method="POST" enctype="multipart/form-data">
                         <!--begin::Body-->
                         <div class="card-body">
                             <div class="mb-3">
@@ -89,6 +96,14 @@ if (isset($_POST['save'])) {//ถ้ามีการกดปุ่ม save �
                                 <label for="exampleInputPassword1" class="form-label">Status</label>
                                 <input type="text" name="pro_status" class="form-control" id="exampleInputPassword1"
                                     value="<?php echo $row['pro_status'] ?>" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">รูปภาพเดิม</label>
+                                <img src="assets/product_img/<?php echo $row['image'] ?>" alt="" class="mb-3" width="150">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">รูปภาพใหม่</label>
+                                <input type="file" name="product_img" class="form-control">
                             </div>
                         </div>
                         <!--end::Body-->
