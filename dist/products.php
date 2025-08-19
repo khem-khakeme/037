@@ -38,10 +38,24 @@ $result = mysqli_query($conn, $sql);
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <a href="index.php?page=add_products" class="btn btn-success mb-4">
-                            <i class="bi bi-bag-plus"></i>
-                            add products
-                        </a>
+                        <div class="row">
+                            <div class="col-md-10"> <!-- colแต่ละอันบวกกันต้องได้12 -->
+                                <form action="products_csv.php" class="row" method="POST" enctype="multipart/form-data">
+                                    <label for="" class="form-col-label col-md-2">upload ไฟล์ CSV</label>
+                                    <div class="col-md-8">
+                                        <input type="file" name="filecsv" class="form-control">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button class="btn btn-success" type="submit">upload</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-2">
+                                <a href="index.php?page=add_products" class="btn btn-success mb-4">
+                                    <i class="bi bi-person-add"></i>add products
+                                </a>
+                            </div>
+                        </div>
                         <table class="table table-bordered">
                             <thead>
                                 <tr>

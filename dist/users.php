@@ -37,14 +37,28 @@ $result = mysqli_query($conn, $sql);
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <a href="index.php?page=add_user" class="btn btn-success mb-4">
-                            <i class="bi bi-person-add"></i>
-                            add user
-                        </a>
+                        <div class="row">
+                            <div class="col-md-10"> <!-- colแต่ละอันบวกกันต้องได้12 -->
+                                <form action="user_csv.php" class="row" method="POST" enctype="multipart/form-data">
+                                    <label for="" class="form-col-label col-md-2">upload ไฟล์ CSV</label>
+                                    <div class="col-md-8">
+                                        <input type="file" name="filecsv" class="form-control">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button class="btn btn-success" type="submit">upload</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-2">
+                                <a href="index.php?page=add_user" class="btn btn-success mb-4">
+                                    <i class="bi bi-person-add"></i>add user
+                                </a>
+                            </div>
+                        </div>
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th style="width: 10px">#</th>
+                                    <th>#</th>
                                     <th>Username</th>
                                     <th>Fullname</th>
                                     <th>Phone</th>
@@ -64,12 +78,14 @@ $result = mysqli_query($conn, $sql);
                                         <td><?php echo $row['fullname'] ?></td>
                                         <td><?php echo $row['phone'] ?></td>
                                         <td><?php echo $row['email'] ?></td>
-                                        <td><img src="assets/user_img/<?php echo $row['image']?>" width="150"></td>
+                                        <td><img src="assets/user_img/<?php echo $row['image'] ?>" width="100"></td>
                                         <td>
-                                            <a href="index.php?page=edit_user&username=<?php echo $row['username']?>" class="btn btn-warning">
+                                            <a href="index.php?page=edit_user&username=<?php echo $row['username'] ?>"
+                                                class="btn btn-warning">
                                                 <i class="bi bi-pencil-square"></i>
                                             </a>
-                                            <a href="index.php?page=del_user&username=<?php echo $row['username']?>" class="btn btn-danger" onclick="return confirm('Are you sure?')">
+                                            <a href="index.php?page=del_user&username=<?php echo $row['username'] ?>"
+                                                class="btn btn-danger" onclick="return confirm('Are you sure?')">
                                                 <i class="bi bi-trash"></i>
                                             </a>
                                         </td>
